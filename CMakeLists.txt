@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 2.8)
-project (MagicUnique CXX)
+set( MY_APP_NAME "MagicUnique" )
+
+project( ${MY_APP_NAME} CXX)
 
 set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" )
 
@@ -27,8 +29,10 @@ endif()
 # The install rule does not depend on all, i.e. everything will not be built before installing
 set( CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE )
 
-FILE( GLOB SRCS *.cpp )
-SET( MY_APP_NAME "MagicUnique" )
+file( GLOB SRCS *.cpp )
+
+include( UseMagicUniqueBoost )
 
 add_executable( ${MY_APP_NAME} MACOSX_BUNDLE WIN32 ${SRCS} )
-target_link_libraries( ${MY_APP_NAME} ${Boost_LIBRARIES}  )
+target_include_directories( ${MY_APP_NAME} PUBLIC ${Boost_INCLUDE_DIRS} )
+target_link_libraries( ${MY_APP_NAME} ${Boost_LIBRARIES} )
